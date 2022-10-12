@@ -13,24 +13,24 @@ jobs:
         run: npm install
         working-directory: ./my-agora-states-client
       - name: Build
-        run: npm build
+        run: npm run build
         working-directory: ./my-agora-states-client
       - name: SHOW AWS CLI VERSION
         env:
-          AWS_ACCESS_KEY_ID: ${{ AKIASEBV4CULN2J7D7WS }}
-          AWS_SECRET_ACCESS_KEY: ${{ 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 }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
         run: |
           aws --version
       - name: Sync Bucket
         env:
-          AWS_ACCESS_KEY_ID: ${{ AKIASEBV4CULN2J7D7WS }}
-          AWS_SECRET_ACCESS_KEY: ${{ 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 }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
         run: |
-          aws s3 arn:aws:s3:::fe-108-wusi-hub \
+          aws s3 sync \
             --region ap-northeast-2 \
-            build s3://<?> \
+            build s3://fe-108-wusi-hub \
             --delete
-        working-directory: <?>
+        working-directory: ./my-agora-states-client
 
